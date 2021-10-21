@@ -1,0 +1,92 @@
+-- 문제 15
+drop table if exists emptbl;
+create table emptbl(
+	   EMPNO int primary key,
+       ENAME varchar(20) not null,
+       JOB varchar(8) not null,
+       MGR varchar(10),
+       HIREDATE date not null,
+       SAL int not null,
+       COMM int,
+       DEPTNO int,
+       foreign key(DEPTNO) references DEPTtbl(DEPTNO) 
+);
+-- 문제 16
+insert into emptbl values
+			(1001, '김사랑', '사원', 1013, '2007-03-01', 300, NULL, 20),
+            (1002, '한예슬', '대리', 1005, '2008-10-01', 250,  80, 30),
+            (1003, '오지호', '과장', 1005,'2005-02-10', 500,  100, 30),
+            (1004, '이병헌', '부장', 1008, '2003-09-02', 600, NULL, 20),
+            (1005, '신동협', '과장', 1005, '2010-02-09', 450,  200, 30),
+            (1006, '장동건', '부장', 1008, '2003-10-09', 480, NULL, 30),
+            (1007, '이문세', '부장', 1008, '2004-01-08', 520, NULL, 10),
+            (1008, '감우성', '차장', 1003, '2004-03-08', 500,  0, 30),
+            (1009, '안성기', '사장', NULL, '1996-10-04', 1000, NULL, 20),
+            (1010, '이병헌', '과장', 1003, '2005-04-07', 500, NULL, 10),
+            (1011, '조향기', '사원', 1007, '2007-03-01', 280, NULL, 30),
+            (1012, '강혜정', '사원', 1006, '2007-08-09', 300, NULL, 20),
+            (1013, '박중훈', '부장', 1003, '2002-10-09', 560, NULL, 20),
+            (1014, '조인성', '사원', 1006, '2007-11-09', 250, NULL, 10);
+
+-- 문제 17
+drop table if exists salgradetbl;
+create table salgradetbl(
+			GRADE int auto_increment primary key,
+            LOSAL int not null,
+            HISAL int not null
+);
+
+-- 문제 18
+insert into salgradetbl values
+			(null, 700, 1200),
+            (null, 1200, 1400),
+            (null, 1700, 2000),
+            (null, 2000, 3000),
+            (null, 3000, 9999);
+            
+-- 문제 19
+
+select ENAME,SAL,HIREDATE
+  from emptbl;
+  
+-- 문제 20
+select EMPNO as '부서번호', ENAME as '부서명'
+  from emptbl;
+  
+-- 문제 21
+select distinct JOB
+  from emptbl;
+  
+-- 문제 22
+select EMPNO, ENAME, SAL
+  from emptbl
+ where SAL < 300;
+ 
+-- 문제 23
+select EMPNO, ENAME, SAL
+  from emptbl
+ where ENAME = '오지호';
+ 
+-- 문제 24
+select EMPNO, ENAME, SAL
+  from emptbl
+--  where SAL = 300 or SAL = 250;
+ where SAL in(300, 250);
+
+-- 문제 25
+
+select ENAME
+  from emptbl
+ where SAL not in(300, 250,500);
+ 
+-- 문제 26
+
+select EMPNO, ENAME
+  from emptbl
+ where ENAME like '김%'
+    or ENAME like '%기%';
+
+-- 문제 27
+select *
+  from emptbl
+ where JOB = '사장';

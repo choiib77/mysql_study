@@ -1,0 +1,182 @@
+use mydb;
+
+-- 문제39
+-- emp테이블을 이용하여 급여 최고액, 최저액, 총액 및 평균 급여 출력하시오.
+select max(sal) as '급여 최고액', min(sal) as '급여 최저액', sum(sal) as '급여 총액', avg(sal) as '평균 급여'
+ from emp;
+
+-- 문제40
+-- 담당 업무 유형별로 급여 최고액, 최저액, 총액 및 평균 급여 출력하시오
+select max(sal) as '급여 최고액', min(sal) as '급여 최저액', sum(sal) as '급여 총액', avg(sal) as '평균 급여'
+from emp
+group by deptno;
+
+-- 문제41
+-- 담당 업무별 직급별 명수 출력하세요
+select deptno as '부서', job as '직급', count(*) as '사원수'
+from emp 
+group by deptno, job
+with rollup;
+
+-- 문제42
+-- 과장의 수 출력하세요
+select count(*) 
+from emp 
+where job='과장';
+
+-- 문제43
+-- 급여 최고액, 급여 최저액의 차액 출력하세요
+select (max(sal)-min(sal)) 
+from emp;
+
+-- 문제44
+-- 직급별 사원의 최저 급여를 내림차순 출력하세요
+select job, min(sal) from emp group by job order by sal desc;
+
+-- 문제45
+-- 부서별 사원수, 평균 급여를 부서별로 오름차순 출력하세요
+select deptno, count(*), avg(sal) 
+from emp 
+group by deptno 
+order by deptno;
+
+-- 문제46
+-- 소속 부서별 최대급여와 최소 급여 구하여 출력하시오
+select deptno, max(sal), min(sal) from emp group by deptno;
+
+-- 문제47
+-- 부서별 사원수와 커미션을 받는 사원들의 수를 출력하시오
+select deptno, count(*), count(comm) 
+from emp 
+group by deptno;
+
+-- 문제48
+-- 부서별 평균 급여가 500이상인 부서의 번호와 평균급여를 구하여 출력하시오
+select deptno, avg(sal) 
+from emp 
+group by deptno 
+having avg(sal) >= 500;
+
+-- 문제49
+-- 최대급여가 500을 초과하는 부서에 대해서 최대급여와 최소급여를 출력하시오.
+select deptno, max(sal), min(sal)
+from emp
+group by deptno
+having max(sal) > 500;
+
+-- 문제50
+-- 부서별 급여총액을 중간합계로 출력하고 사원전체에 대한 총합계를 출력하시오
+select deptno, sum(sal) 
+from emp 
+group by deptno
+with rollup;
+
+-- 문제51
+-- 부서별  급여 총액을 구하되 부서내 다시 직급별로 급여총액을 구하여 출력하시오 
+select deptno, job, sum(sal)
+from emp 
+group by deptno, job
+with rollup;
+
+-- 문제52
+-- SUBSTRING 함수를 사용하여 9월에 입사한 사원을 출력하세요
+select * from emp where substring(hiredate, 6, 2) = '09';
+
+-- 문제53
+-- SUBSTRING 함수를 이용하여 2003년도에 입사한 사원을 출력하세요
+select * from emp where substring(hiredate, 1, 4) = '2003';
+
+-- 문제54
+-- SUBSTRING 함수를 이용하여 “기”로 끝나는 사원을 출력하세요
+select * from emp where substring(ename, 3, 1) = '기';
+
+-- 문제55
+-- -44, -77, -100 에 대한 절대값을 출력하시오
+select abs(-44), abs(-77), abs(-100);
+
+-- 문제56
+-- cast()를 이용하여 2015-09-01 11:22:44:777을 날짜만 출력하세요
+select cast('2015-09-01 11:22:44:777' as date);
+
+-- 문제57
+-- 문제56에서 준 데이터를 시간만 따로 출력하시오
+select cast('2015-09-01 11:22:44:777' as time);
+
+-- 문제58
+-- 34.5678을 소수점 아래를 버리시오
+select truncate(34.5678, 0);
+select floor(34.5678);
+
+-- 문제59
+-- 27.8987을 반올림하여 소수점을 없애시오
+select round(27.8987);
+select format(27.8987, 0);
+
+-- 문제60																				
+-- 19.6678을 소수점 1째자리를 반올림하시오		
+select round(19.6678, 1);																		
+select format(19.6678, 1);
+
+-- 문제61
+-- 24.4535를 20이 나오도록 하세요
+select truncate(24.4532, -1);
+
+-- 문제62
+-- 78을 3으로 나누었을때 나머지를 구하시오
+select 78 mod 3;
+
+-- 문제63
+-- 15의 4승을 출력하고, 81의 제곱근을 구하시오
+select pow(15,4), sqrt(81);
+
+-- 문제64
+-- rand()룰 이용하여 로또 번호를 출력하세요
+select truncate((1+(rand()*(45-1))), 0);
+
+-- 문제65
+-- 34.667788을 소수점 2째자리에서 버림하세요
+select truncate(34.667788, 2);
+
+-- 문제66
+-- Welcome to MySQL'을 대문자, 소문자로 각각 변경하시오
+select ucase('Welcome to MySQL'), lcase('Welcome to MySQL');
+
+-- 문제67
+-- 2017년 10월 5일에서 30일후의 날짜와 한달 뒤의 날짜를 각각 출력하시오
+select adddate('20171005', interval 30 day);
+select adddate('20171005', interval 1 month);
+
+-- 문제68
+-- 문제67의 데이터에서 각각 30일 이전날짜와 한달전 날짜를 출력하시오
+select subdate('20171005', interval 30 day);
+select subdate('20171005', interval 1 month);
+
+-- 문제69
+-- 자신의 태어난 날부터 현재까지 살아온 일수를 출력하시오
+select datediff(curdate(), '19910215');
+
+-- 문제70
+-- 오늘 날짜를 출력하고 1년중에 몇일째인지를 출력하시오
+select curdate(), dayofyear(curdate());
+
+-- 문제71
+-- 2021년 2월의 마지막날을 출력하시오
+select last_day('20210201');
+
+-- 문제72
+-- 9시45분을 몇초인지 출력하시오
+select time_to_sec('9:45');
+
+-- 문제73
+-- 5초후 다음 문구를 출력하시오 문구 : 열심히 하자
+select sleep(5);
+select '열심히 하자';
+
+-- 문제74
+-- 오늘날짜를 출력하고 몇사분기인지를 출력하시오
+select curdate(), quarter(curdate());
+
+
+
+
+

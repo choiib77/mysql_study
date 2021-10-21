@@ -1,0 +1,13 @@
+#문제1, 문제2
+CREATE TABLE DEPT(DEPTNO INT not null, primary key(deptno),
+	 DNAME VARCHAR(14),
+	 LOC   VARCHAR(13) 
+);
+           
+INSERT INTO DEPT VALUES(10, '경리부', '서울');
+INSERT INTO DEPT VALUES(20, '인사부', '인천');
+INSERT INTO DEPT VALUES(30, '영업부', '용인'); 
+INSERT INTO DEPT VALUES(40, '전산부', '수원');
+
+select *
+from dept;

@@ -1,0 +1,36 @@
+-- 문제 28
+select *
+from emp 
+where sal > 500 and deptno = any(select deptno from dept);
+-- 문제 29
+create table emp_copy select * from emp;
+select *
+from emp_copy;
+select *
+from emp;
+-- 문제 30
+select ename, sal, job
+from emp_copy
+where sal > (select min(sal) from emp_copy where job = '과장') and job != '과장';
+-- 문제 31
+update emp_copy
+set sal = sal + 100
+where deptno = (select deptno from dept where loc = '인천');
+-- 문제 32
+delete from emp_copy
+where deptno = (select deptno from dept where dname = '경리부');
+select *
+from emp_copy;
+-- 문제 33
+select *
+from emp
+where job = (select job from emp where ename = '이문세')
+and ename not in('이문세');
+-- 문제 34
+select *
+from emp
+where sal >= (select sal from emp where ename = '이문세');
+-- 문제 35
+select ename, deptno
+from emp
+where deptno = (select deptno from dept where loc = '인천');

@@ -1,0 +1,23 @@
+create table emp (deptNo int, deptName char(10), job char(5), sal int,
+				  primary key(`deptNo`));
+
+delete from emp;
+drop table emp;
+
+select *
+from emp;
+
+
+insert into emp values(10, '인사팀', '사원', 250);
+insert into emp values(20, '재무팀', '대리', 300);
+insert into emp values(30, '법무팀', '과장', 350);
+insert into emp values(40, '영업팀', '사원', 250);
+insert into emp values(50, '설계팀', '부장', 500);
+
+
+update emp
+set sal=180
+where job='사원';
+
+delete from emp
+where deptNo=50;
