@@ -1,0 +1,74 @@
+-- 문제 28
+select ENAME
+  from emptbl
+ where SAL > 500
+   and deptName;
+   
+-- 문제 29
+drop table if exists emp_copy;
+create table emp_copy(
+	select *
+      from emptbl
+);
+desc emptbl;
+
+select *
+  from emp_copy;
+
+-- 문제 30
+select ENAME, SAL,JOB
+  from emp_copy
+ where SAL >(
+		select min(SAL)
+         from emp_copy)
+  and JOB not in('과장');
+  
+-- 문제 31
+select ENAME, SAL + 100
+  from emp_copy
+ where DEPTNO in
+	(select DEPTNO
+     from DEPTtbl
+     where LOC = '인천');
+     
+-- 문제 32
+
+delete from emp_copy
+ where DEPTNO in
+	(select DEPTNO
+     from DEPTtbl
+     where DNAME = '경리부');
+     
+select *
+  from emp_copy;
+  
+-- 문제 33
+select *
+  from emp_copy
+  where JOB =
+	(select JOB
+	   from emp_copy
+	  where ENAME = '이문세');
+
+-- 문제 34
+
+select ENAME,SAL
+  from emp_copy
+  where SAL =
+	(select SAL
+	   from emp_copy
+	  where ENAME = '이문세')
+	or SAL > 
+    	(select SAL
+	   from emp_copy
+	  where ENAME = '이문세');
+      
+-- 문제 35
+select ENAME, DEPTNO
+from emp_copy
+  where DEPTNO in
+	(select DEPTNO
+	   from DEPTtbl
+	  where LOC = '인천');
+
+
